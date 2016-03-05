@@ -1,0 +1,15 @@
+{
+  "name": "webchemistry/utils",
+  "type": "library",
+  "tags": ["utils", "nette"],
+  "require": {
+    "nette/utils": "^2.3"
+  },
+  "require-dev": {
+    "codeception/codeception": "^2.0",
+    "nette/finder": "^2.3"
+  },
+  "autoload": {
+    "classmap": ["src/"]
+  }
+}
