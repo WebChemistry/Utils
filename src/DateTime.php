@@ -2,9 +2,9 @@
 
 namespace WebChemistry\Utils;
 
-use Nette;
+use Nette\Utils;
 
-class DateTime extends Nette\Utils\DateTime {
+class DateTime extends Utils\DateTime {
 
 	/** @var string */
 	public static $datetime = 'd.m.Y H:i';

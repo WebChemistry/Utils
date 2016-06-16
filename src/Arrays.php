@@ -2,9 +2,10 @@
 
 namespace WebChemistry\Utils;
 
-use Nette;
+use Nette\Utils;
+use Nette\InvalidArgumentException;
 
-class Arrays extends Nette\Utils\Arrays {
+class Arrays extends Utils\Arrays {
 
 	/**
 	 * @param array|\Traversable $array
@@ -13,7 +14,7 @@ class Arrays extends Nette\Utils\Arrays {
 	 */
 	public static function toArray($array, $check = FALSE) {
 		if ($check && (!is_array($array) && !$array instanceof \Traversable)) {
-			throw new Nette\InvalidArgumentException(sprintf('Parameter must be an array or class implements Traversable, %s given.', gettype($array)));
+			throw new InvalidArgumentException(sprintf('Parameter must be an array or class implements Traversable, %s given.', gettype($array)));
 		}
 
 		return $array instanceof \Traversable ? iterator_to_array($array) : (array) $array;
@@ -25,7 +26,7 @@ class Arrays extends Nette\Utils\Arrays {
 	 */
 	public static function count($array) {
 		if (!is_array($array) && !$array instanceof \Traversable) {
-			throw new Nette\InvalidArgumentException(sprintf('Parameter must be an array or class implements Traversable, %s given.', gettype($array)));
+			throw new InvalidArgumentException(sprintf('Parameter must be an array or class implements Traversable, %s given.', gettype($array)));
 		}
 
 		return $array instanceof \Traversable ? iterator_count($array) : count($array);
