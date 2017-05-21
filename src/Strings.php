@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebChemistry\Utils;
 
 use Nette\Utils;
@@ -16,31 +18,20 @@ class Strings extends Utils\Strings {
 	 * Format number
 	 *
 	 * @param float|int $num
-	 * @param int       $decimals
-	 * @param null      $decPoint
-	 * @param null      $sepThousands
+	 * @param int $decimals
+	 * @param null|string $decPoint
+	 * @param null|string $sepThousands
 	 * @return string
 	 */
-	public static function number($num, $decimals = 0, $decPoint = NULL, $sepThousands = NULL) {
+	public static function number($num, int $decimals = 0, string $decPoint = NULL, string $sepThousands = NULL): string {
 		return number_format($num, $decimals, $decPoint !== NULL ? $decPoint : self::$decPoint, $sepThousands !== NULL ? $sepThousands : self::$sepThousands);
-	}
-
-	/**
-	 * @param int $num
-	 * @param string $first
-	 * @param string $second
-	 * @param string $third
-	 * @return string
-	 */
-	public static function plural($num, $first, $second, $third) {
-		return $num . ' ' . ($num === 1 ? $first : ($num > 1 && $num < 5 ? $second : $third));
 	}
 
 	/**
 	 * @param string $s
 	 * @return string
 	 */
-	public static function detectEncoding($s) {
+	public static function detectEncoding(string $s): string {
 		if (preg_match('#[\x80-\x{1FF}\x{2000}-\x{3FFF}]#u', $s))
 			return 'UTF-8';
 
@@ -54,7 +45,7 @@ class Strings extends Utils\Strings {
 	 * @param string $s
 	 * @return string
 	 */
-	public static function toUTF8($s) {
+	public static function toUTF8(string $s): string {
 		if (preg_match('#[\x80-\x{1FF}\x{2000}-\x{3FFF}]#u', $s))
 			return $s;
 

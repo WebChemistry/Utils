@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace WebChemistry\Utils;
 
 use Nette\Utils;
@@ -36,7 +38,7 @@ class DateTime extends Utils\DateTime {
 	 * @param int|\DateTime $time
 	 * @return string
 	 */
-	public static function translateMonth($time) {
+	public static function translateMonth($time): string {
 		if (is_numeric($time) && $time > 13) {
 			$time = date('n', $time);
 		}
@@ -51,7 +53,7 @@ class DateTime extends Utils\DateTime {
 	 * @param int|\DateTime $time
 	 * @return string
 	 */
-	public static function translateDay($time) {
+	public static function translateDay($time): string {
 		if (is_numeric($time) && $time > 6) {
 			$time = date('w', $time);
 		}
@@ -67,7 +69,7 @@ class DateTime extends Utils\DateTime {
 	 * @param int|null $from
 	 * @return null|string
 	 */
-	public static function timeAgo($time, $from = NULL) {
+	public static function timeAgo($time, $from = NULL): ?string {
 		$from = DateTime::from($from);
 		$time = DateTime::from($time);
 		if ($from === NULL) {
@@ -98,10 +100,10 @@ class DateTime extends Utils\DateTime {
 
 	/**
 	 * @param mixed $time
-	 * @param null  $format
+	 * @param null|string $format
 	 * @return string
 	 */
-	public static function flush($time, $format = NULL) {
+	public static function flush($time, string $format = NULL): string {
 		if ($format === NULL) {
 			$format = self::$datetime;
 		}
@@ -113,39 +115,39 @@ class DateTime extends Utils\DateTime {
 	/**
 	 * @return string
 	 */
-	public function __toString() {
+	public function __toString(): string {
 		return $this->format(self::$datetime);
 	}
 
 	/**
 	 * @return string
 	 */
-	public function baseFormat() {
+	public function baseFormat(): string {
 		return $this->format('Y-m-d H:i:s');
 	}
 
 	/**
 	 * @param int|\DateTime $time
-	 * @return DateTime
+	 * @return string
 	 */
-	public static function toDateTime($time) {
+	public static function toDateTime($time): string {
 		return self::flush($time);
 	}
 
 	/**
 	 * @param int|\DateTime $time
 	 * @param string|null $format
-	 * @return DateTime
+	 * @return string
 	 */
-	public static function toDate($time, $format = NULL) {
+	public static function toDate($time, string $format = NULL): string {
 		return self::flush($time, $format ? : self::$date);
 	}
 
 	/**
 	 * @param int $time
-	 * @return DateTime
+	 * @return string
 	 */
-	public static function toTime($time) {
+	public static function toTime($time): string {
 		return self::flush($time, self::$time);
 	}
 
@@ -154,7 +156,7 @@ class DateTime extends Utils\DateTime {
 	 * @param string $value
 	 * @return DateTime
 	 */
-	public static function start($type, $value = NULL) {
+	public static function start(string $type, string $value = NULL): self {
 		$index = self::$startEndIndexes[$type];
 		$v = [
 			'Y' => date('Y'), 'm' => '01', 'd' => '01', 'H' => '00', 'i' => '00', 's' => '00'
@@ -179,7 +181,7 @@ class DateTime extends Utils\DateTime {
 	 * @param string $value
 	 * @return DateTime
 	 */
-	public static function end($type, $value = NULL) {
+	public static function end(string $type, string $value = NULL): self {
 		$index = self::$startEndIndexes[$type];
 		$v = [
 			'Y' => date('Y'), 'm' => '12', 'd' => '31', 'H' => '23', 'i' => '59', 's' => '59'
