@@ -34,10 +34,6 @@ class DateTimeTest extends \Codeception\TestCase\Test {
 		$this->assertSame(date('Y-m-d H:i:s'), (new Date())->baseFormat());
 	}
 
-	public function testToString() {
-		$this->assertSame(date(Date::$datetime), (string) new Date());
-	}
-
 	public function testToDateTime() {
 		$this->assertSame(date(Date::$datetime), Date::toDateTime(new Date()));
 	}
