@@ -112,12 +112,6 @@ class DateTime extends Utils\DateTime {
 
 		return $datetime->format($format);
 	}
-	/**
-	 * @return string
-	 */
-	public function __toString(): string {
-		return $this->format(self::$datetime);
-	}
 
 	/**
 	 * @return string
