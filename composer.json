@@ -9,10 +9,6 @@
 		"php": ">=7.1",
 		"nette/utils": "^2.3"
 	},
-	"require-dev": {
-		"codeception/codeception": "^2.0",
-		"nette/finder": "^2.3"
-	},
 	"autoload": {
 		"psr-4": {
 			"WebChemistry\\Utils\\": "src/"
