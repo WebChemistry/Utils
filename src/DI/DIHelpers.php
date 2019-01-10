@@ -3,6 +3,7 @@
 namespace WebChemistry\Utils\DI;
 
 use Nette\DI\ContainerBuilder;
+use Nette\DI\Definitions\FactoryDefinition;
 
 class DIHelpers {
 
@@ -14,14 +15,22 @@ class DIHelpers {
 	}
 
 	public function registerLatteFilterLoader(string $class, string $method = 'load') {
-		$this->builder->getDefinition('latte.latteFactory')
-			->addSetup('?->addFilter(null, [?, ?])', ['@self', $class, $method]);
+		$def = $this->builder->getDefinition('latte.latteFactory');
+		if ($def instanceof FactoryDefinition) {
+			$def = $def->getResultDefinition();
+		}
+
+		$def->addSetup('?->addFilter(null, [?, ?])', ['@self', $class, $method]);
 
 		return $this;
 	}
 
 	public function registerLatteMacroLoader(string $class, string $method = 'install') {
 		$factory = $this->builder->getDefinition('latte.latteFactory');
+		if ($factory instanceof FactoryDefinition) {
+			$factory = $factory->getResultDefinition();
+		}
+		
 		if (($class[0] ?? null) === '@') {
 			$factory->addSetup('?->onCompile[] = function ($engine) { ?->' . $method . '($engine->getCompiler()); }', ['@self', $class]);
 		} else {
